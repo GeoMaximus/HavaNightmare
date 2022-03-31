@@ -11,10 +11,12 @@ public class Main {
         c1.move();
         System.out.println(c1.computeTax());
 
-        try {
-            Car c2 = (Car) c1.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+        if(c1 instanceof Cloneable){
+            try {
+                Car c2 = (Car) c1.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+                }
         }
     }
 }
