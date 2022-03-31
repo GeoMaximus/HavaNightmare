@@ -1,18 +1,22 @@
 package seminar03;
 
 public final class Car extends Vehicle implements Taxable{
+    private final int ID;
     private double engineSize;
     private final double ENGINE_LIMIT = 2000;
     public Car(){
+        ID = 0;
         this.engineSize = 0;
     }
 
-    public Car(String name, int speed, double engineSize) {
+    public Car(int id, String name, int speed, double engineSize) {
         super(name, speed);
+        this.ID = id;
         this.engineSize = engineSize;
     }
 
-    public Car(double engineSize) {
+    public Car(int id, double engineSize) {
+        ID = id;
         this.engineSize = engineSize;
     }
 
@@ -29,5 +33,12 @@ public final class Car extends Vehicle implements Taxable{
         else {
             return engineSize*0.1;
         }
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Car copy = (Car)super.clone();
+        copy.engineSize = engineSize;
+        return copy;
     }
 }
