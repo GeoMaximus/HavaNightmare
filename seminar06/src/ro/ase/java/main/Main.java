@@ -34,8 +34,6 @@ public class Main {
             bufferedWriter.write(Double.toString(price));
             bufferedWriter.close();
             fileOutputStream.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -49,10 +47,37 @@ public class Main {
             double productPrice = Double.parseDouble(bufferedReader.readLine());
             Product product1 = new Product(productName, productQuantity, productPrice);
             System.out.println(product1);
+            bufferedReader.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            //do not write static attributes because they are not supposed to be serialized
+            //writing to binary = serialization
+            FileOutputStream fileOutputStream = new FileOutputStream("product.bin");
+            DataOutputStream dataOutputStream = new DataOutputStream(fileOutputStream);
+            dataOutputStream.writeUTF(product.getName());
+            dataOutputStream.writeInt(product.getQuantity());
+            dataOutputStream.writeDouble(product.getPrice());
+            dataOutputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream("product.bin");
+            DataInputStream dataInputStream = new DataInputStream(fileInputStream);
+            String productName = dataInputStream.readUTF();
+            int productQuantity = dataInputStream.readInt();
+            double productPrice = dataInputStream.readDouble();
+            dataInputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 }
