@@ -1,4 +1,4 @@
-<font size=10><strong> HavaNightmare </strong> <br> </font>
+# HavaNightmare
 
 <font size=8> As the title says my realtionship with java was not always a pretty one. <br>
   It started off rough, but with time we understood eachother's differences and accepted <br>
